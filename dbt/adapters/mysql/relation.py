@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 
 from dbt.adapters.base.relation import BaseRelation, Policy
-# This class doesn’t exist.
-# from dbt.exceptions import RuntimeException
 
 
 @dataclass
@@ -23,15 +21,19 @@ class MySQLIncludePolicy(Policy):
 class MySQLRelation(BaseRelation):
     quote_policy: MySQLQuotePolicy = MySQLQuotePolicy()
     include_policy: MySQLIncludePolicy = MySQLIncludePolicy()
-    quote_character: str = "`"
+    quote_character: str = '`'
+
+    @classmethod
+    def get_default_quote_policy(cls) -> Policy:
+        return MySQLQuotePolicy()
+
+    @classmethod
+    def get_default_include_policy(cls) -> Policy:
+        return MySQLIncludePolicy()
 
     def __post_init__(self):
         if self.database != self.schema and self.database:
-            raise Exception(
-                f"Cannot set `database` to '{self.database}' in mysql!"
-                "You can either unset `database`, or make it match `schema`, "
-                f"currently set to '{self.schema}'"
-            )
+            raise Exception(f'Cannot set database {self.database} in mysql!')
 
     def render(self):
         if self.include_policy.database and self.include_policy.schema:
