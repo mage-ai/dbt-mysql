@@ -6,7 +6,7 @@ import mysql.connector.constants
 import dbt.exceptions
 from dbt.adapters.sql import SQLConnectionManager
 from dbt.adapters.contracts.connection import AdapterResponse, Connection, Credentials
-from dbt.events import AdapterLogger
+from dbt.adapters.events.logging import AdapterLogger
 from dataclasses import dataclass
 from typing import Optional, Union
 

@@ -16,7 +16,7 @@ from dbt.contracts.graph.nodes import ConstraintType
 from dbt.adapters.base.impl import ConstraintSupport
 from dbt.contracts.graph.manifest import Manifest
 from dbt.clients.agate_helper import DEFAULT_TYPE_TESTER
-from dbt.events import AdapterLogger
+from dbt.adapters.events.logging import AdapterLogger
 from dbt.utils import executor
 
 logger = AdapterLogger("mysql")
